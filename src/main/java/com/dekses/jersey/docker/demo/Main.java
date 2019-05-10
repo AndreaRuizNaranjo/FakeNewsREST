@@ -20,7 +20,7 @@ import javax.ws.rs.core.MediaType;
 public class Main {
 
     // Base URI the Grizzly HTTP server will listen on
-    public static final String BASE_URI = "http://localhost:8080/myapp/";
+    public static final String BASE_URI = "http://localhost:8080/myapp/fakenews";
 
     /**
      * Starts Grizzly HTTP server exposing JAX-RS resources defined in this
@@ -56,19 +56,19 @@ public class Main {
         // System.in.read();
         // server.stop();
 
-        webResource = client.resource("http://localhost:8080/myapp/myresource");
+        webResource = client.resource("http://localhost:8080/myapp/fakenews");
 
         try {
 
             int opcion = -1;
 
             Scanner lectura = new Scanner(System.in);
-            System.out.println("Bienvenido al sistema de pacientes");
-            Patient paciente = new Patient();
+            System.out.println("Bienvenido al sistema de periodistas");
+            Periodista periodistas = new Periodista();
 
             do {
 
-                System.out.println("1. Mostrar Todos \n 2. Crear. \n 3. Buscar. \n 4.Modificar \n 5. Borrar \n 6. Salir");
+                System.out.println("1. Mostrar Todos \n 2. Crear. \n 3.Modificar \n 4. Borrar \n 5. Salir");
                 opcion = lectura.nextInt();
 
                 ObjectMapper mapper = new ObjectMapper();
@@ -76,12 +76,13 @@ public class Main {
                 switch (opcion) {
                     case 1: // Mostrar Todos
 
-                        List Patients = PatientDAO.getAllPatient();
+                        List Periodistas = PeriodistaDAO.getAllPeriodistas();
 
-                        for (int i = 0; i < Patients.size(); i++) {
-                            paciente = (Patient) Patients.get(i);
-                            paciente.toString();
+                        for (int i = 0; i < Periodistas.size(); i++) {
+                            periodistas = (Periodista) Periodistas.get(i);
+                            Periodistas.toString();
                         }
+                        System.out.println("La lista de los periodistas son: " + Periodistas);
 
                         break;
 
@@ -89,86 +90,53 @@ public class Main {
 
                         System.out.println("Ingrese el nombre");
                         String nombre = lectura.next();
-                        paciente.setName(nombre);
+                        periodistas.setNombre(nombre);
 
-                        System.out.println("Ingrese la direccion");
-                        String direccion = lectura.next();
-                        paciente.setAddress(direccion);
+                        System.out.println("Ingrese el email");
+                        String email = lectura.next();
+                        periodistas.setEmail(email);
 
-                        System.out.println("Ingrese la fecha de nacimiento");
-                        String fechanacimiento = lectura.next();
-                        paciente.setBirth(fechanacimiento);
+                        System.out.println("Ingrese la contraseña");
+                        String contrasena = lectura.next();
+                        periodistas.setContrasena(contrasena);
 
-                        System.out.println("Ingrese el numero telefonico");
-                        String numerotelefono = lectura.next();
-                        paciente.setTelephone(numerotelefono);
 
-                        System.out.println("Ingrese el medicare");
-                        String medicare = lectura.next();
-                        paciente.setMedicare(medicare);
-
-                        System.out.println("Ingrese el status");
-                        String status = lectura.next();
-                        paciente.setStatus(status);
-
-                        String input = mapper.writeValueAsString(paciente);
+                        String input = mapper.writeValueAsString(periodistas);
 
                         response = webResource.type(MediaType.APPLICATION_JSON).put(ClientResponse.class, input);
 
-                        PatientDAO.addPatient(paciente);
+                        PeriodistaDAO.addPeriodista(periodistas);
 
-                        System.out.println("Listo! c: ");
-
-                        break;
-
-                    case 3: // Buscar.
-
-                        System.out.println("Digite el nombre del usuario a buscar: \n");
-                        String id = lectura.next();
-
-                        Patient pacienteRetorno = PatientDAO.getPatient(id);
-                        pacienteRetorno.toString();
+                        System.out.println("Agregado exitosamente");
 
                         break;
 
-                    case 4: // Modificar.
+                    case 3: // Modificar.
 
-                        System.out.println("Ingrese el nuevo nombre");
+                        System.out.println("Ingrese el nombre");
                         nombre = lectura.next();
-                        paciente.setName(nombre);
+                        periodistas.setNombre(nombre);
 
-                        System.out.println("Ingrese la nueva direccion");
-                        direccion = lectura.next();
-                        paciente.setAddress(direccion);
+                        System.out.println("Ingrese el email");
+                        email = lectura.next();
+                        periodistas.setEmail(email);
 
-                        System.out.println("Ingrese la nueva fecha de nacimiento");
-                        fechanacimiento = lectura.next();
-                        paciente.setBirth(fechanacimiento);
-
-                        System.out.println("Ingrese el nuevo numero telefonico");
-                        numerotelefono = lectura.next();
-                        paciente.setTelephone(numerotelefono);
-
-                        System.out.println("Ingrese el nuevo medicare");
-                        medicare = lectura.next();
-                        paciente.setMedicare(medicare);
-
-                        System.out.println("Ingrese el nuevo status");
-                        status = lectura.next();
-                        paciente.setStatus(status);
-
-                        PatientDAO.updatePatient(paciente);
-                        System.out.println("Listo! c: ");
+                        System.out.println("Ingrese la fecha de nacimiento");
+                        contrasena = lectura.next();
+                        periodistas.setContrasena(contrasena);
+                        PeriodistaDAO.updatePeriodista(periodistas);
+                        
+                        System.out.println("Modificado exitosamente");
 
                         break;
 
-                    case 5: // Borrar.
+                    case 4: // Borrar.
 
-                        System.out.println("Digite el nombre del usuario a eliminar: \n");
-                        nombre = lectura.next();
+                        System.out.println("Digite el email del usuario a eliminar: \n");
+                        email = lectura.next();
 
-                        PatientDAO.deletePatient(nombre);
-                        System.out.println("Listo! c: ");
+                        PeriodistaDAO.deletePeriodista(email);
+                        System.out.println("Eliminado exitosamente ");
 
                         break;
 

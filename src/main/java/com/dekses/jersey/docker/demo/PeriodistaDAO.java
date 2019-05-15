@@ -11,7 +11,22 @@ import java.util.List;
 
 public class PeriodistaDAO {
 
-    
+      public static Periodista getPeriodista(String nombre) throws UnknownHostException {
+
+        Singleton conexion = Singleton.getInstance();
+
+        DBCollection coll = conexion.getDb().getCollection("fakenewsperiodista");
+
+        Gson gson = new Gson();
+        DBObject doc = new BasicDBObject("name", nombre);
+
+        DBObject obj = coll.findOne(doc);
+        Periodista p = gson.fromJson(obj.toString(), Periodista.class);
+        System.out.println("encontre el periodista " + p);
+
+        return p;
+
+    }
 
     public static void addPeriodista(Periodista p) {
 
@@ -20,7 +35,7 @@ public class PeriodistaDAO {
             Singleton conexion = Singleton.getInstance();
 
             DBCollection coll = conexion.getDb().getCollection("fakenewsperiodista");
-            DBObject doc = new BasicDBObject("name", p.getNombre())
+            DBObject doc = new BasicDBObject("nombre", p.getNombre())
                     .append("email", p.getEmail())
                     .append("contrasena", p.getContrasena());
 
@@ -34,34 +49,35 @@ public class PeriodistaDAO {
 
     }
 
-    public static void updatePeriodista(Periodista p) throws UnknownHostException {
+    public static void updatePeriodista(Periodista p, String idNombre) throws UnknownHostException {
 
         Singleton conexion = Singleton.getInstance();
 
         DBCollection coll = conexion.getDb().getCollection("fakenewsperiodista");
         DBObject document = new BasicDBObject();
-        document.put("nombre", p.getNombre());
 
-        DBObject searchQuery = new BasicDBObject().append("name", p.getNombre())
-                .append("email", p.getEmail())
+        document.put("nombre", idNombre);
+
+        DBObject searchQuery = new BasicDBObject().append("email", p.getEmail())
                 .append("contrasena", p.getContrasena());
+
         coll.update(searchQuery, document);
 
         System.out.println("Periodista " + p.getNombre()+ " modificado exitosamente.");
-        
+
     }
 
-    public static void deletePeriodista(String email) {
+    public static void deletePeriodista(String nombre) {
         try {
 
             Singleton conexion = Singleton.getInstance();
 
             DBCollection coll = conexion.getDb().getCollection("fakenewsperiodista");
             DBObject document = new BasicDBObject();
-            document.put("email", email);
+            document.put("nombre", nombre);
 
             coll.remove(document);
-            System.out.println("Periodista con email: " + email + " eliminado exitosamente.");
+            System.out.println("Periodista con nombre: " + nombre + " eliminado exitosamente.");
 
         } catch (UnknownHostException e) {
             System.err.println(e.getClass().getName() + ": "
@@ -70,9 +86,9 @@ public class PeriodistaDAO {
 
     }
 
-    public static List getAllPeriodistas() throws UnknownHostException {
+    public static List getAllPeriodista() throws UnknownHostException {
 
-        List<Periodista> Periodistas = new ArrayList();
+        List<Periodista> Listaperiodistas = new ArrayList();
 
         try {
 
@@ -85,8 +101,8 @@ public class PeriodistaDAO {
                     DBObject object = cursor.next();
                     Gson gson = new Gson();
                     Periodista p = gson.fromJson(object.toString(), Periodista.class);
-                    
-                    System.out.println("Se encontraron todos los periodistas." + Periodistas);
+                    Listaperiodistas.add(p);
+
 
                 }
             } finally {
@@ -98,7 +114,7 @@ public class PeriodistaDAO {
                     + e.getMessage());
         }
 
-        return Periodistas;
+        return Listaperiodistas;
 
     }
 

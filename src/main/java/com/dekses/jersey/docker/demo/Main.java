@@ -20,7 +20,7 @@ import javax.ws.rs.core.MediaType;
 public class Main {
 
     // Base URI the Grizzly HTTP server will listen on
-    public static final String BASE_URI = "http://localhost:8080/myapp/fakenews";
+    public static final String BASE_URI = "http://localhost:8080/myapp/";
 
     /**
      * Starts Grizzly HTTP server exposing JAX-RS resources defined in this
@@ -46,7 +46,7 @@ public class Main {
      */
     public static void main(String[] args) throws IOException {
 
-        Client client = Client.create();
+       Client client = Client.create();
         WebResource webResource = null;
         ClientResponse response = null;
 
@@ -63,26 +63,26 @@ public class Main {
             int opcion = -1;
 
             Scanner lectura = new Scanner(System.in);
-            System.out.println("Bienvenido al sistema de periodistas");
-            Periodista periodistas = new Periodista();
+            System.out.println("¡Bienvenido al sistema de pacientes! Selecciona una opción: \n\n");
+            Periodista per = new Periodista();
 
             do {
 
-                System.out.println("1. Mostrar Todos \n 2. Crear. \n 3.Modificar \n 4. Borrar \n 5. Salir");
+                System.out.println("1. Mostrar Todos.\n 2. Crear.\n 3. Buscar.\n 4.Modificar.\n 5. Borrar.\n 6. Salir.");
                 opcion = lectura.nextInt();
 
                 ObjectMapper mapper = new ObjectMapper();
 
                 switch (opcion) {
+                    
                     case 1: // Mostrar Todos
 
-                        List Periodistas = PeriodistaDAO.getAllPeriodistas();
+                        List Listaperiodistas = PeriodistaDAO.getAllPeriodista();
 
-                        for (int i = 0; i < Periodistas.size(); i++) {
-                            periodistas = (Periodista) Periodistas.get(i);
-                            Periodistas.toString();
+                        for (int i = 0; i < Listaperiodistas.size(); i++) {
+                            per = (Periodista) Listaperiodistas.get(i);
+                            System.out.println(per.toString());
                         }
-                        System.out.println("La lista de los periodistas son: " + Periodistas);
 
                         break;
 
@@ -90,53 +90,60 @@ public class Main {
 
                         System.out.println("Ingrese el nombre");
                         String nombre = lectura.next();
-                        periodistas.setNombre(nombre);
+                        per.setNombre(nombre);
 
-                        System.out.println("Ingrese el email");
-                        String email = lectura.next();
-                        periodistas.setEmail(email);
+                        System.out.println("Ingrese el correo electronico");
+                        String correo = lectura.next();
+                        per.setEmail(correo);
 
                         System.out.println("Ingrese la contraseña");
                         String contrasena = lectura.next();
-                        periodistas.setContrasena(contrasena);
+                        per.setContrasena(contrasena);
 
 
-                        String input = mapper.writeValueAsString(periodistas);
-
+                        String input = mapper.writeValueAsString(per);
                         response = webResource.type(MediaType.APPLICATION_JSON).put(ClientResponse.class, input);
-
-                        PeriodistaDAO.addPeriodista(periodistas);
-
-                        System.out.println("Agregado exitosamente");
+                        PeriodistaDAO.addPeriodista(per);
+                        System.out.println("Listo! c: ");
 
                         break;
 
-                    case 3: // Modificar.
+                    case 3: // Buscar.
 
-                        System.out.println("Ingrese el nombre");
-                        nombre = lectura.next();
-                        periodistas.setNombre(nombre);
+                        System.out.println("Digite el nombre del usuario a buscar: \n");
+                        String id = lectura.next();
 
-                        System.out.println("Ingrese el email");
-                        email = lectura.next();
-                        periodistas.setEmail(email);
+                        Periodista pacienteRetorno = PeriodistaDAO.getPeriodista(id);
+                        System.out.println(pacienteRetorno.toString());
 
-                        System.out.println("Ingrese la fecha de nacimiento");
-                        contrasena = lectura.next();
-                        periodistas.setContrasena(contrasena);
-                        PeriodistaDAO.updatePeriodista(periodistas);
+                        break;
+
+                    case 4: // Modificar.
                         
-                        System.out.println("Modificado exitosamente");
+                        System.out.println("Ingrese el nombre");
+                        String idNombre = lectura.next();
+                        per.setNombre(idNombre);
+
+                        System.out.println("Ingrese el correo electronico");
+                        correo = lectura.next();
+                        per.setEmail(correo);
+
+                        System.out.println("Ingrese la contraseña");
+                        contrasena = lectura.next();
+                        per.setContrasena(contrasena);
+
+                        PeriodistaDAO.updatePeriodista(per, idNombre);
+                        System.out.println("Listo! c: ");
 
                         break;
 
-                    case 4: // Borrar.
+                    case 5: // Borrar.
 
-                        System.out.println("Digite el email del usuario a eliminar: \n");
-                        email = lectura.next();
+                        System.out.println("Digite el nombre del usuario a eliminar: \n");
+                        nombre = lectura.next();
 
-                        PeriodistaDAO.deletePeriodista(email);
-                        System.out.println("Eliminado exitosamente ");
+                        PeriodistaDAO.deletePeriodista(nombre);
+                        System.out.println("Listo! c: ");
 
                         break;
 
@@ -153,6 +160,10 @@ public class Main {
             e.printStackTrace();
 
         }
+        
 
     }
+        
 }
+
+

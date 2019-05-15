@@ -17,33 +17,41 @@ import javax.ws.rs.core.MediaType;
 @Path("fakenews")
 public class MyResource {
 
-    @GET
+ @GET
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public List<Periodista> getPatient_GSON() throws UnknownHostException {
-        List<Periodista> listOfPeriodista = PeriodistaDAO.getAllPeriodistas();
+    public List<Periodista> getPeriodista_JSON() throws UnknownHostException {
+        List<Periodista> listOfPeriodista = PeriodistaDAO.getAllPeriodista();
         return listOfPeriodista;
     }
  
-   
+    // URI:
+    // /contextPath/servletPath/employees/{empNo}
+    @GET
+    @Path("/{nombre}")
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public Periodista getPeriodista(@PathParam("nombre") String nombre) throws UnknownHostException {
+        return PeriodistaDAO.getPeriodista(nombre);
+    }
+ 
     // URI:
     // /contextPath/servletPath/employees
     @POST
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public void addPatient(Periodista p) {
+    public void addPeriodista(Periodista p) {
         PeriodistaDAO.addPeriodista(p);
     }
  
     @PUT
+    @Path("/{idNombre}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public void updatePatient(Periodista p) throws UnknownHostException {
-        PeriodistaDAO.updatePeriodista(p);
+    public void updatePeriodista(Periodista p, @PathParam("idNombre") String idNombre) throws UnknownHostException {
+        PeriodistaDAO.updatePeriodista(p, idNombre);
     }
  
     @DELETE
-    @Path("/{email}")
+    @Path("/{nombre}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public void deletePatient(@PathParam("email") String email) {
-        PeriodistaDAO.deletePeriodista(email);
+    public void deletePeriodista(@PathParam("nombre") String nombre) {
+        PeriodistaDAO.deletePeriodista(nombre);
     }    
-    
 }

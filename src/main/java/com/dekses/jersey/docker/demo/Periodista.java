@@ -49,5 +49,9 @@ public class Periodista {
         this.contrasena = contrasena;
     }
 
-   
+    @Override
+    public String toString() {
+        return "Periodista{" + "nombre=" + nombre + ", email=" + email + ", contrasena=" + contrasena + '}';
+    }
+    
 }

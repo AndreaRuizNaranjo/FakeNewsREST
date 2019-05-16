@@ -1,5 +1,6 @@
-package com.dekses.jersey.docker.demo;
+package com.dekses.jersey.docker.demo.Validador;
 
+import com.dekses.jersey.docker.demo.*;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -31,7 +32,7 @@ public class Main {
     public static HttpServer startServer() {
         // create a resource config that scans for JAX-RS resources and providers
         // in com.dekses.jersey.docker.demo package
-        final ResourceConfig rc = new ResourceConfig().packages("com.dekses.jersey.docker.demo");
+        final ResourceConfig rc = new ResourceConfig().packages("com.dekses.jersey.docker.demo.Validador");
 
         // create and start a new instance of grizzly http server
         // exposing the Jersey application at BASE_URI
@@ -56,15 +57,15 @@ public class Main {
         // System.in.read();
         // server.stop();
 
-        webResource = client.resource("http://localhost:8080/myapp/fakenews");
+        webResource = client.resource("http://localhost:8080/myapp/fakenewsval");
 
         try {
 
             int opcion = -1;
 
             Scanner lectura = new Scanner(System.in);
-            System.out.println("¡Bienvenido al sistema de periodistas Selecciona una opción: \n\n");
-            Periodista per = new Periodista();
+            System.out.println("¡Bienvenido al sistema de validadores Selecciona una opción: \n\n");
+            Validador val = new Validador();
 
             do {
 
@@ -77,11 +78,11 @@ public class Main {
                     
                     case 1: // Mostrar Todos
 
-                        List Listaperiodistas = PeriodistaDAO.getAllPeriodista();
+                        List Listavalidadores = ValidadorDAO.getAllValidador();
 
-                        for (int i = 0; i < Listaperiodistas.size(); i++) {
-                            per = (Periodista) Listaperiodistas.get(i);
-                            System.out.println(per.toString());
+                        for (int i = 0; i < Listavalidadores.size(); i++) {
+                            val = (Validador) Listavalidadores.get(i);
+                            System.out.println(val.toString());
                         }
 
                         break;
@@ -90,20 +91,20 @@ public class Main {
 
                         System.out.println("Ingrese el nombre");
                         String nombre = lectura.next();
-                        per.setNombre(nombre);
+                        val.setNombre(nombre);
 
                         System.out.println("Ingrese el correo electronico");
                         String correo = lectura.next();
-                        per.setEmail(correo);
+                        val.setEmail(correo);
 
                         System.out.println("Ingrese la contraseña");
                         String contrasena = lectura.next();
-                        per.setContrasena(contrasena);
+                        val.setContrasena(contrasena);
 
 
-                        String input = mapper.writeValueAsString(per);
+                        String input = mapper.writeValueAsString(val);
                         response = webResource.type(MediaType.APPLICATION_JSON).put(ClientResponse.class, input);
-                        PeriodistaDAO.addPeriodista(per);
+                        ValidadorDAO.addValidador(val);
                         System.out.println("Listo! c: ");
 
                         break;
@@ -113,8 +114,8 @@ public class Main {
                         System.out.println("Digite el nombre del usuario a buscar: \n");
                         String id = lectura.next();
 
-                        Periodista periodistaRetorno = PeriodistaDAO.getPeriodista(id);
-                        System.out.println(periodistaRetorno.toString());
+                        Validador validadorRetorno = ValidadorDAO.getValidador(id);
+                        System.out.println(validadorRetorno.toString());
 
                         break;
 
@@ -122,17 +123,17 @@ public class Main {
                         
                         System.out.println("Ingrese el nombre");
                         String idNombre = lectura.next();
-                        per.setNombre(idNombre);
+                        val.setNombre(idNombre);
 
                         System.out.println("Ingrese el correo electronico");
                         correo = lectura.next();
-                        per.setEmail(correo);
+                        val.setEmail(correo);
 
                         System.out.println("Ingrese la contraseña");
                         contrasena = lectura.next();
-                        per.setContrasena(contrasena);
+                        val.setContrasena(contrasena);
 
-                        PeriodistaDAO.updatePeriodista(per, idNombre);
+                        ValidadorDAO.updateValidador(val, idNombre);
                         System.out.println("Listo! c: ");
 
                         break;
@@ -142,7 +143,7 @@ public class Main {
                         System.out.println("Digite el nombre del usuario a eliminar: \n");
                         nombre = lectura.next();
 
-                        PeriodistaDAO.deletePeriodista(nombre);
+                        ValidadorDAO.deleteValidador(nombre);
                         System.out.println("Listo! c: ");
 
                         break;

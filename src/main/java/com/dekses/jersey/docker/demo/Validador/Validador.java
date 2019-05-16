@@ -3,22 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.dekses.jersey.docker.demo;
+package com.dekses.jersey.docker.demo.Validador;
 
 /**
  *
- * @author white
+ * @author andre
  */
-public class Periodista {
-    
+public class Validador {
     private String nombre;
     private String email;
     private String contrasena;
 
-   public Periodista() {
+   public Validador() {
             }
 
-    public Periodista(String nombre, String email, String contrasena) {
+    public Validador(String nombre, String email, String contrasena) {
         this.nombre = nombre;
         this.email = email;
         this.contrasena = contrasena;
@@ -51,7 +50,7 @@ public class Periodista {
 
     @Override
     public String toString() {
-        return "Periodista{" + "nombre=" + nombre + ", email=" + email + ", contraseña=" + contrasena + '}';
+        return "Validador {" + "nombre=" + nombre + ", email=" + email + ", contraseña=" + contrasena + '}';
     }
     
 }

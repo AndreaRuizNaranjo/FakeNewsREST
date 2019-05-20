@@ -1,4 +1,4 @@
-package com.dekses.jersey.docker.demo.Validador;
+package com.dekses.jersey.docker.demo.Noticia;
 
 import com.dekses.jersey.docker.demo.*;
 import com.mongodb.DB;

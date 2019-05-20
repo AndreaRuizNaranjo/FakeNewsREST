@@ -15,7 +15,7 @@ public class Singleton {
 
     private Singleton() throws UnknownHostException {
         this.mongoClient = new MongoClient(HOST, PORT);
-        this.db = mongoClient.getDB("fakenewsperiodista");
+        this.db = mongoClient.getDB("fakenews");
     }
 
     public static Singleton getInstance() throws UnknownHostException {

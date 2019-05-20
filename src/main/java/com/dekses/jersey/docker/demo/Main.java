@@ -56,7 +56,7 @@ public class Main {
         // System.in.read();
         // server.stop();
 
-        webResource = client.resource("http://localhost:8080/myapp/fakenews");
+        webResource = client.resource("http://localhost:8080/myapp/fakenewsper");
 
         try {
 
@@ -89,15 +89,16 @@ public class Main {
                     case 2: // Crear
 
                         System.out.println("Ingrese el nombre");
-                        String nombre = lectura.next();
+                        String ignorar = lectura.nextLine();
+                        String nombre = lectura.nextLine();
                         per.setNombre(nombre);
 
                         System.out.println("Ingrese el correo electronico");
-                        String correo = lectura.next();
+                        String correo = lectura.nextLine();
                         per.setEmail(correo);
 
                         System.out.println("Ingrese la contraseña");
-                        String contrasena = lectura.next();
+                        String contrasena = lectura.nextLine();
                         per.setContrasena(contrasena);
 
 
@@ -111,7 +112,8 @@ public class Main {
                     case 3: // Buscar.
 
                         System.out.println("Digite el nombre del usuario a buscar: \n");
-                        String id = lectura.next();
+                        ignorar = lectura.nextLine();
+                        String id = lectura.nextLine();
 
                         Periodista periodistaRetorno = PeriodistaDAO.getPeriodista(id);
                         System.out.println(periodistaRetorno.toString());
@@ -140,7 +142,8 @@ public class Main {
                     case 5: // Borrar.
 
                         System.out.println("Digite el nombre del usuario a eliminar: \n");
-                        nombre = lectura.next();
+                        ignorar = lectura.nextLine();
+                        nombre = lectura.nextLine();
 
                         PeriodistaDAO.deletePeriodista(nombre);
                         System.out.println("Listo! c: ");

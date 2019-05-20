@@ -90,15 +90,16 @@ public class Main {
                     case 2: // Crear
 
                         System.out.println("Ingrese el nombre");
-                        String nombre = lectura.next();
+                        String ignorar = lectura.nextLine();
+                        String nombre = lectura.nextLine();
                         val.setNombre(nombre);
 
                         System.out.println("Ingrese el correo electronico");
-                        String correo = lectura.next();
+                        String correo = lectura.nextLine();
                         val.setEmail(correo);
 
                         System.out.println("Ingrese la contraseña");
-                        String contrasena = lectura.next();
+                        String contrasena = lectura.nextLine();
                         val.setContrasena(contrasena);
 
 
@@ -112,7 +113,8 @@ public class Main {
                     case 3: // Buscar.
 
                         System.out.println("Digite el nombre del usuario a buscar: \n");
-                        String id = lectura.next();
+                        ignorar = lectura.nextLine();
+                        String id = lectura.nextLine();
 
                         Validador validadorRetorno = ValidadorDAO.getValidador(id);
                         System.out.println(validadorRetorno.toString());
@@ -141,7 +143,8 @@ public class Main {
                     case 5: // Borrar.
 
                         System.out.println("Digite el nombre del usuario a eliminar: \n");
-                        nombre = lectura.next();
+                        ignorar = lectura.nextLine();
+                        nombre = lectura.nextLine();
 
                         ValidadorDAO.deleteValidador(nombre);
                         System.out.println("Listo! c: ");

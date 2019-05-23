@@ -134,24 +134,40 @@ public class Main {
 
                         break;
 
-//                    case 4: // Modificar.
-//                        
-//                        System.out.println("Ingrese el nombre");
-//                        String idNombre = lectura.next();
-//                        per.setNombre(idNombre);
-//
-//                        System.out.println("Ingrese el correo electronico");
-//                        correo = lectura.next();
-//                        per.setEmail(correo);
-//
-//                        System.out.println("Ingrese la contraseña");
-//                        contrasena = lectura.next();
-//                        per.setContrasena(contrasena);
-//
-//                        NoticiaDAO.updatePeriodista(per, idNombre);
-//                        System.out.println("Listo! c: ");
-//
-//                        break;
+                        case 4: // Modificar.
+                        
+                       System.out.println("Ingrese el titulo de la noticia");
+                        ignorar = lectura.nextLine();
+                        String Idtitulo = lectura.nextLine();
+                        not.setTitulo(Idtitulo);
+
+                        System.out.println("Ingrese el autor");
+                        autor = lectura.nextLine();
+                        not.setAutor(autor);
+
+                        System.out.println("Ingrese la fuente");
+                        fuente = lectura.nextLine();
+                        not.setFuente(fuente);
+
+                        System.out.println("Ingrese la fecha");
+                        fecha = lectura.nextLine();
+                        not.setFecha(fecha);
+
+                        System.out.println("Ingrese 1 si esta validada o 2 si no esta validado");
+                        aux = Integer.parseInt(lectura.nextLine());
+                        
+                        if (aux == 1) {
+                            validado = true;
+                        } else {
+                            validado = false;
+                        }
+                        not.setValidado(validado);
+
+
+                        NoticiaDAO.updateNoticia(not, Idtitulo);
+                        System.out.println("Listo! c: ");
+
+                          break;
                     case 5: // Borrar.
 
                         System.out.println("Digite el nombre de la noticia a eliminar: \n");

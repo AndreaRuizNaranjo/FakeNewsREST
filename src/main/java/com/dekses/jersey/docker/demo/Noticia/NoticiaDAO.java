@@ -52,23 +52,22 @@ public class NoticiaDAO {
 
     }
 
-//    public static void updatePeriodista(Noticia n, String idTitulo) throws UnknownHostException {
-//
-//        Singleton conexion = Singleton.getInstance();
-//
-//        DBCollection coll = conexion.getDb().getCollection("fakenewsnoticia");
-//        DBObject document = new BasicDBObject();
-//
-//        document.put("titulo", idTitulo);
-//
-//        DBObject searchQuery = new BasicDBObject().append("email", p.getEmail())
-//                .append("contrasena", p.getContrasena());
-//
-//        coll.update(searchQuery, document);
-//
-//        System.out.println("Periodista " + p.getNombre()+ " modificado exitosamente.");
-//
-//    }
+   public static void updateNoticia(Noticia n, String Idtitulo) throws UnknownHostException {
+      Singleton conexion = Singleton.getInstance();
+
+        DBCollection coll = conexion.getDb().getCollection("fakenewsnoticia");
+        BasicDBObject document = new BasicDBObject();
+        
+        document.append("$set", new BasicDBObject().append("autor", n.getAutor())
+                                                   .append("fecha", n.getFecha())
+                                                   .append("fuente", n.getFuente()) 
+                                                   .append("validado", n.getValidado())); 
+        DBObject searchQuery = new BasicDBObject().append("titulo", n.getTitulo());
+
+        coll.update(searchQuery, document);
+
+        System.out.println("Noticia " +n.getTitulo()+ " modificado exitosamente.");
+     }
 
     public static void deleteNoticia(String titulo) {
         try {

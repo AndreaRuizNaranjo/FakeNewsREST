@@ -27,10 +27,10 @@ public class MyResource {
     // URI:
     // /contextPath/servletPath/employees/{empNo}
     @GET
-    @Path("/{nombre}")
+    @Path("/{email}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public Periodista getPeriodista(@PathParam("nombre") String nombre) throws UnknownHostException {
-        return PeriodistaDAO.getPeriodista(nombre);
+    public Periodista getPeriodista(@PathParam("email") String email) throws UnknownHostException {
+        return PeriodistaDAO.getPeriodista(email);
     }
  
     // URI:
@@ -42,16 +42,16 @@ public class MyResource {
     }
  
     @PUT
-    @Path("/{idNombre}")
+    @Path("/{idEmail}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public void updatePeriodista(Periodista p, @PathParam("idNombre") String idNombre) throws UnknownHostException {
-        PeriodistaDAO.updatePeriodista(p, idNombre);
+    public void updatePeriodista(Periodista p, @PathParam("idEmail") String idEmail) throws UnknownHostException {
+        PeriodistaDAO.updatePeriodista(p, idEmail);
     }
  
     @DELETE
-    @Path("/{nombre}")
+    @Path("/{email}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public void deletePeriodista(@PathParam("nombre") String nombre) {
-        PeriodistaDAO.deletePeriodista(nombre);
+    public void deletePeriodista(@PathParam("email") String email) {
+        PeriodistaDAO.deletePeriodista(email);
     }    
 }

@@ -42,12 +42,12 @@ public class MyResource {
         NoticiaDAO.addNoticia(n);
     }
  
-//    @PUT
-//    @Path("/{idTitulo}")
-//    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-//    public void updatePeriodista(Noticia p, @PathParam("idNombre") String idNombre) throws UnknownHostException {
-//        NoticiaDAO.updatePeriodista(p, idNombre);
-//    }
+    @PUT
+    @Path("/{Idtitulo}")
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    public void updateNoticia(Noticia p, @PathParam("Idtitulo") String Idtitulo) throws UnknownHostException {
+        NoticiaDAO.updateNoticia(p, Idtitulo);
+    }
  
     @DELETE
     @Path("/{titulo}")

@@ -111,7 +111,7 @@ public class Main {
 
                     case 3: // Buscar.
 
-                        System.out.println("Digite el nombre del usuario a buscar: \n");
+                        System.out.println("Digite el email del usuario a buscar: \n");
                         ignorar = lectura.nextLine();
                         String id = lectura.nextLine();
 
@@ -122,30 +122,31 @@ public class Main {
 
                     case 4: // Modificar.
                         
-                        System.out.println("Ingrese el nombre");
-                        String idNombre = lectura.next();
-                        per.setNombre(idNombre);
-
                         System.out.println("Ingrese el correo electronico");
-                        correo = lectura.next();
-                        per.setEmail(correo);
+                        ignorar = lectura.nextLine();
+                        String idEmail = lectura.nextLine();
+                        per.setEmail(idEmail);
+                        
+                        System.out.println("Ingrese el nombre");
+                        nombre = lectura.nextLine();
+                        per.setNombre(nombre);
 
                         System.out.println("Ingrese la contraseña");
-                        contrasena = lectura.next();
+                        contrasena = lectura.nextLine();
                         per.setContrasena(contrasena);
 
-                        PeriodistaDAO.updatePeriodista(per, idNombre);
+                        PeriodistaDAO.updatePeriodista(per, idEmail);
                         System.out.println("Listo! c: ");
 
                         break;
 
                     case 5: // Borrar.
 
-                        System.out.println("Digite el nombre del usuario a eliminar: \n");
+                        System.out.println("Digite el email del usuario a eliminar: \n");
                         ignorar = lectura.nextLine();
-                        nombre = lectura.nextLine();
+                        correo = lectura.nextLine();
 
-                        PeriodistaDAO.deletePeriodista(nombre);
+                        PeriodistaDAO.deletePeriodista(correo);
                         System.out.println("Listo! c: ");
 
                         break;

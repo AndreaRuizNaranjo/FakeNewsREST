@@ -28,10 +28,10 @@ public class MyResource {
     // URI:
     // /contextPath/servletPath/employees/{empNo}
     @GET
-    @Path("/{nombre}")
+    @Path("/{email}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public Validador getValidador(@PathParam("nombre") String nombre) throws UnknownHostException {
-        return ValidadorDAO.getValidador(nombre);
+    public Validador getValidador(@PathParam("email") String email) throws UnknownHostException {
+        return ValidadorDAO.getValidador(email);
     }
  
     // URI:
@@ -43,16 +43,16 @@ public class MyResource {
     }
  
     @PUT
-    @Path("/{idNombre}")
+    @Path("/{idEmail}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public void updateValidador(Validador v, @PathParam("idNombre") String idNombre) throws UnknownHostException {
-        ValidadorDAO.updateValidador(v, idNombre);
+    public void updateValidador(Validador v, @PathParam("idEmail") String idEmail) throws UnknownHostException {
+        ValidadorDAO.updateValidador(v, idEmail);
     }
  
     @DELETE
-    @Path("/{nombre}")
+    @Path("/{email}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public void deleteValidador(@PathParam("nombre") String nombre) {
-        ValidadorDAO.deleteValidador(nombre);
+    public void deleteValidador(@PathParam("email") String email) {
+        ValidadorDAO.deleteValidador(email);
     }    
 }

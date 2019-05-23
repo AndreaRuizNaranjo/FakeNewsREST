@@ -112,7 +112,7 @@ public class Main {
 
                     case 3: // Buscar.
 
-                        System.out.println("Digite el nombre del usuario a buscar: \n");
+                        System.out.println("Digite el email del usuario a buscar: \n");
                         ignorar = lectura.nextLine();
                         String id = lectura.nextLine();
 
@@ -123,26 +123,27 @@ public class Main {
 
                     case 4: // Modificar.
                         
-                        System.out.println("Ingrese el nombre");
-                        String idNombre = lectura.next();
-                        val.setNombre(idNombre);
-
                         System.out.println("Ingrese el correo electronico");
-                        correo = lectura.next();
-                        val.setEmail(correo);
+                        ignorar = lectura.nextLine();
+                        String idEmail = lectura.nextLine();
+                        val.setEmail(idEmail);
+                        
+                        System.out.println("Ingrese el nombre");
+                        nombre = lectura.nextLine();
+                        val.setNombre(nombre);
 
                         System.out.println("Ingrese la contraseña");
-                        contrasena = lectura.next();
+                        contrasena = lectura.nextLine();
                         val.setContrasena(contrasena);
 
-                        ValidadorDAO.updateValidador(val, idNombre);
+                        ValidadorDAO.updateValidador(val, idEmail);
                         System.out.println("Listo! c: ");
 
                         break;
 
                     case 5: // Borrar.
 
-                        System.out.println("Digite el nombre del usuario a eliminar: \n");
+                        System.out.println("Digite el email del usuario a eliminar: \n");
                         ignorar = lectura.nextLine();
                         nombre = lectura.nextLine();
 

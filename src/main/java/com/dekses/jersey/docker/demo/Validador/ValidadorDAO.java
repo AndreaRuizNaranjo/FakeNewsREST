@@ -1,6 +1,5 @@
 package com.dekses.jersey.docker.demo.Validador;
 
-import com.dekses.jersey.docker.demo.*;
 import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
@@ -12,14 +11,14 @@ import java.util.List;
 
 public class ValidadorDAO {
 
-      public static Validador getValidador(String nombre) throws UnknownHostException {
+      public static Validador getValidador(String email) throws UnknownHostException {
 
         Singleton conexion = Singleton.getInstance();
 
         DBCollection coll = conexion.getDb().getCollection("fakenewsvalidador");
 
         Gson gson = new Gson();
-        DBObject doc = new BasicDBObject("nombre", nombre);
+        DBObject doc = new BasicDBObject("email", email);
 
         DBObject obj = coll.findOne(doc);
         Validador v = gson.fromJson(obj.toString(), Validador.class);
@@ -50,35 +49,33 @@ public class ValidadorDAO {
 
     }
 
-    public static void updateValidador(Validador v, String idNombre) throws UnknownHostException {
-
+    public static void updateValidador(Validador v, String idEmail) throws UnknownHostException {
+           
         Singleton conexion = Singleton.getInstance();
 
         DBCollection coll = conexion.getDb().getCollection("fakenewsvalidador");
-        DBObject document = new BasicDBObject();
-
-        document.put("nombre", idNombre);
-
-        DBObject searchQuery = new BasicDBObject().append("email", v.getEmail())
-                .append("contrasena", v.getContrasena());
+        BasicDBObject document = new BasicDBObject();
+        
+       document.append("$set", new BasicDBObject().append("contrasena", v.getContrasena()).append("nombre", v.getNombre())); 
+        DBObject searchQuery = new BasicDBObject().append("email", v.getEmail());
 
         coll.update(searchQuery, document);
 
-        System.out.println("Validador " + v.getNombre()+ " modificado exitosamente.");
-
+        System.out.println("Periodista " + v.getNombre()+ " modificado exitosamente.");
+        
     }
 
-    public static void deleteValidador(String nombre) {
+    public static void deleteValidador(String email) {
         try {
 
             Singleton conexion = Singleton.getInstance();
 
             DBCollection coll = conexion.getDb().getCollection("fakenewsvalidador");
             DBObject document = new BasicDBObject();
-            document.put("nombre", nombre);
+            document.put("email", email);
 
             coll.remove(document);
-            System.out.println("Validador con nombre: " + nombre + " eliminado exitosamente.");
+            System.out.println("Validador con email: " + email + " eliminado exitosamente.");
 
         } catch (UnknownHostException e) {
             System.err.println(e.getClass().getName() + ": "

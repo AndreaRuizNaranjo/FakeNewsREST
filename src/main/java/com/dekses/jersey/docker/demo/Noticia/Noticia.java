@@ -17,6 +17,7 @@ public class Noticia {
     private String autor;
     private String fuente;
     private String fecha;
+    private String descripcion;
     private boolean validado;
    
     
@@ -56,6 +57,15 @@ public class Noticia {
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
+    
+     public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+  
 
     public boolean getValidado() {
         return validado;
@@ -67,9 +77,10 @@ public class Noticia {
 
     @Override
     public String toString() {
-        return "Noticia{" + "titulo=" + titulo + ", autor=" + autor + ", fuente=" + fuente + ", fecha=" + fecha + ", validado=" + validado + '}';
+        return "Noticia{" + "titulo=" + titulo + ", autor=" + autor + ", fuente=" + fuente + ", fecha=" + fecha + ", descripcion=" + descripcion + ", validado=" + validado + '}';
     }
 
+   
    
     
     

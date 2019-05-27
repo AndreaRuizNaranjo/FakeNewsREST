@@ -1,5 +1,6 @@
-package com.dekses.jersey.docker.demo.Noticia;
+package com.dekses.jersey.docker.demo.puntos;
 
+import com.dekses.jersey.docker.demo.Validador.*;
 import com.dekses.jersey.docker.demo.*;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
@@ -32,7 +33,7 @@ public class Main {
     public static HttpServer startServer() {
         // create a resource config that scans for JAX-RS resources and providers
         // in com.dekses.jersey.docker.demo package
-        final ResourceConfig rc = new ResourceConfig().packages("com.dekses.jersey.docker.demo.Noticia");
+        final ResourceConfig rc = new ResourceConfig().packages("com.dekses.jersey.docker.demo.puntos");
 
         // create and start a new instance of grizzly http server
         // exposing the Jersey application at BASE_URI
@@ -47,7 +48,7 @@ public class Main {
      */
     public static void main(String[] args) throws IOException {
 
-        Client client = Client.create();
+       Client client = Client.create();
         WebResource webResource = null;
         ClientResponse response = null;
 
@@ -57,15 +58,15 @@ public class Main {
         // System.in.read();
         // server.stop();
 
-        webResource = client.resource("http://localhost:8080/myapp/fakenews");
+        webResource = client.resource("http://localhost:8080/myapp/fakenewspun");
 
         try {
 
             int opcion = -1;
 
             Scanner lectura = new Scanner(System.in);
-            System.out.println("¡Bienvenido al sistema de noticias Selecciona una opción: \n\n");
-            Noticia not = new Noticia();
+            System.out.println("¡Bienvenido al sistema de puntos Selecciona una opción: \n\n");
+            Puntos pun = new Puntos();
 
             do {
 
@@ -75,40 +76,28 @@ public class Main {
                 ObjectMapper mapper = new ObjectMapper();
 
                 switch (opcion) {
-
+                    
                     case 1: // Mostrar Todos
 
-                        List Listanoticias = NoticiaDAO.getAllNoticia();
+                        List Listapuntos = PuntosDAO.getAllPuntos();
 
-                        for (int i = 0; i < Listanoticias.size(); i++) {
-                            not = (Noticia) Listanoticias.get(i);
-                            System.out.println(not.toString());
+                        for (int i = 0; i < Listapuntos.size(); i++) {
+                            pun = (Puntos) Listapuntos.get(i);
+                            System.out.println(pun.toString());
                         }
 
                         break;
 
                     case 2: // Crear
 
-                        System.out.println("Ingrese el titulo de la noticia");
+                        System.out.println("Ingrese el email");
                         String ignorar = lectura.nextLine();
-                        String titulo = lectura.nextLine();
-                        not.setTitulo(titulo);
+                        String email = lectura.nextLine();
+                        pun.setEmail(email);
 
-                        System.out.println("Ingrese el autor");
-                        String autor = lectura.nextLine();
-                        not.setAutor(autor);
-
-                        System.out.println("Ingrese la fuente");
-                        String fuente = lectura.nextLine();
-                        not.setFuente(fuente);
-
-                        System.out.println("Ingrese la fecha");
-                        String fecha = lectura.nextLine();
-                        not.setFecha(fecha);
-                        
-                        System.out.println("Ingrese la descripción");
-                        String descripcion = lectura.nextLine();
-                        not.setDescripcion(descripcion);
+                        System.out.println("Ingrese los puntos");
+                        String puntos = lectura.nextLine();
+                        pun.setPuntos(puntos);
 
                         System.out.println("Ingrese 1 si esta validada o 2 si no esta validado");
                         int aux = Integer.parseInt(lectura.nextLine());
@@ -118,71 +107,60 @@ public class Main {
                         } else {
                             validado = false;
                         }
-                        not.setValidado(validado);
+                        pun.setValidado(validado);
 
-                        String input = mapper.writeValueAsString(not);
+
+                        String input = mapper.writeValueAsString(pun);
                         response = webResource.type(MediaType.APPLICATION_JSON).put(ClientResponse.class, input);
-                        NoticiaDAO.addNoticia(not);
+                        PuntosDAO.addPuntos(pun);
                         System.out.println("Listo! c: ");
 
                         break;
 
                     case 3: // Buscar.
 
-                        System.out.println("Digite el titulo de la noticia: \n");
+                        System.out.println("Digite el email del usuario a buscar: \n");
                         ignorar = lectura.nextLine();
                         String id = lectura.nextLine();
 
-                        Noticia noticiaRetorno = NoticiaDAO.getNoticia(id);
-                        System.out.println(noticiaRetorno.toString());
+                        Puntos puntosRetorno = PuntosDAO.getpuntos(id);
+                        System.out.println(puntosRetorno.toString());
 
                         break;
 
-                        case 4: // Modificar.
+                    case 4: // Modificar.
                         
-                       System.out.println("Ingrese el titulo de la noticia");
+                        System.out.println("Ingrese el email");
                         ignorar = lectura.nextLine();
-                        String Idtitulo = lectura.nextLine();
-                        not.setTitulo(Idtitulo);
+                        String idEmail = lectura.nextLine();
+                        pun.setEmail(idEmail);
 
-                        System.out.println("Ingrese el autor");
-                        autor = lectura.nextLine();
-                        not.setAutor(autor);
+                        System.out.println("Ingrese los puntos");
+                        puntos = lectura.nextLine();
+                        pun.setPuntos(puntos);
 
-                        System.out.println("Ingrese la fuente");
-                        fuente = lectura.nextLine();
-                        not.setFuente(fuente);
-
-                        System.out.println("Ingrese la fecha");
-                        fecha = lectura.nextLine();
-                        not.setFecha(fecha);
-
-                        System.out.println("Ingrese la descripción");
-                        descripcion = lectura.nextLine();
-                        not.setDescripcion(descripcion);
-                        
                         System.out.println("Ingrese 1 si esta validada o 2 si no esta validado");
                         aux = Integer.parseInt(lectura.nextLine());
-                        
+                       
                         if (aux == 1) {
                             validado = true;
                         } else {
                             validado = false;
                         }
-                        not.setValidado(validado);
+                        pun.setValidado(validado);
 
-
-                        NoticiaDAO.updateNoticia(not, Idtitulo); 
+                        PuntosDAO.updatePuntos(pun, idEmail);
                         System.out.println("Listo! c: ");
 
-                          break;
+                        break;
+
                     case 5: // Borrar.
 
-                        System.out.println("Digite el nombre de la noticia a eliminar: \n");
+                        System.out.println("Digite el email del usuario a eliminar: \n");
                         ignorar = lectura.nextLine();
-                        titulo = lectura.nextLine();
+                        email = lectura.nextLine();
 
-                        NoticiaDAO.deleteNoticia(titulo);
+                        PuntosDAO.deletePuntos(email);
                         System.out.println("Listo! c: ");
 
                         break;
@@ -200,7 +178,10 @@ public class Main {
             e.printStackTrace();
 
         }
+        
 
     }
-
+        
 }
+
+

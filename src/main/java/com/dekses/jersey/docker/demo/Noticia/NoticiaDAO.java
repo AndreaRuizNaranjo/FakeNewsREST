@@ -40,6 +40,7 @@ public class NoticiaDAO {
                     .append("autor", n.getAutor())
                     .append("fuente", n.getFuente())
                     .append("fecha", n.getFecha())
+                    .append("descripcion", n.getDescripcion())
                     .append("validado", n.getValidado());
 
             coll.insert(doc);
@@ -61,6 +62,7 @@ public class NoticiaDAO {
         document.append("$set", new BasicDBObject().append("autor", n.getAutor())
                                                    .append("fecha", n.getFecha())
                                                    .append("fuente", n.getFuente()) 
+                                                   .append("descripcion", n.getDescripcion()) 
                                                    .append("validado", n.getValidado())); 
         DBObject searchQuery = new BasicDBObject().append("titulo", n.getTitulo());
 

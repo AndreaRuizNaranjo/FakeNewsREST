@@ -1,5 +1,6 @@
-package com.dekses.jersey.docker.demo.puntos;
+package com.dekses.jersey.docker.demo.puntosPeriodista;
 
+import com.dekses.jersey.docker.demo.puntosValidador.*;
 import com.dekses.jersey.docker.demo.Validador.*;
 import com.dekses.jersey.docker.demo.*;
 import java.net.UnknownHostException;
@@ -16,13 +17,13 @@ import javax.ws.rs.core.MediaType;
 /**
  * Root resource (exposed at "myresource" path)
  */
-@Path("fakenewspun")
+@Path("fakenewspuntosper")
 public class MyResource {
 
  @GET
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public List<Puntos> getPuntos_JSON() throws UnknownHostException {
-        List<Puntos> listOfPuntos = PuntosDAO.getAllPuntos();
+    public List<PuntosPeriodista> getPuntosperiodista_JSON() throws UnknownHostException {
+        List<PuntosPeriodista> listOfPuntos = PuntosPeriodistaDAO.getAllPuntosperiodista();
         return listOfPuntos;
     }
  
@@ -31,29 +32,29 @@ public class MyResource {
     @GET
     @Path("/{email}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public Puntos getPuntos(@PathParam("email") String email) throws UnknownHostException {
-        return PuntosDAO.getpuntos(email);
+    public PuntosPeriodista getPuntosperiodista(@PathParam("email") String email) throws UnknownHostException {
+        return PuntosPeriodistaDAO.getpuntosperiodista(email);
     }
  
     // URI:
     // /contextPath/servletPath/employees
     @POST
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public void addPuntos(Puntos pu) {
-        PuntosDAO.addPuntos(pu);
+    public void addPuntosperiodista(PuntosPeriodista pu) {
+        PuntosPeriodistaDAO.addPuntosperiodista(pu);
     }
  
     @PUT
     @Path("/{idEmail}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public void updatePuntos(Puntos pu, @PathParam("idEmail") String idEmail) throws UnknownHostException {
-        PuntosDAO.updatePuntos(pu, idEmail);
+    public void updatePuntosperiodista(PuntosPeriodista pu, @PathParam("idEmail") String idEmail) throws UnknownHostException {
+        PuntosPeriodistaDAO.updatePuntosperiodista(pu, idEmail);
     }
  
     @DELETE
     @Path("/{email}")
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public void deletePuntos(@PathParam("email") String email) {
-        PuntosDAO.deletePuntos(email);
+    public void deletePuntosperiodista(@PathParam("email") String email) {
+        PuntosPeriodistaDAO.deletePuntosperiodista(email);
     }    
 }

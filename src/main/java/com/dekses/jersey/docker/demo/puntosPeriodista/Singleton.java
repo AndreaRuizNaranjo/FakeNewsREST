@@ -1,5 +1,6 @@
-package com.dekses.jersey.docker.demo.puntos;
+package com.dekses.jersey.docker.demo.puntosPeriodista;
 
+import com.dekses.jersey.docker.demo.puntosValidador.*;
 import com.dekses.jersey.docker.demo.Validador.*;
 import com.dekses.jersey.docker.demo.*;
 import com.mongodb.DB;

@@ -1,4 +1,4 @@
-package com.dekses.jersey.docker.demo.puntos;
+package com.dekses.jersey.docker.demo.puntosValidador;
 
 import com.dekses.jersey.docker.demo.Validador.*;
 import com.dekses.jersey.docker.demo.*;
@@ -33,7 +33,7 @@ public class Main {
     public static HttpServer startServer() {
         // create a resource config that scans for JAX-RS resources and providers
         // in com.dekses.jersey.docker.demo package
-        final ResourceConfig rc = new ResourceConfig().packages("com.dekses.jersey.docker.demo.puntos");
+        final ResourceConfig rc = new ResourceConfig().packages("com.dekses.jersey.docker.demo.puntosValidador");
 
         // create and start a new instance of grizzly http server
         // exposing the Jersey application at BASE_URI
@@ -58,7 +58,7 @@ public class Main {
         // System.in.read();
         // server.stop();
 
-        webResource = client.resource("http://localhost:8080/myapp/fakenewspun");
+        webResource = client.resource("http://localhost:8080/myapp/fakenewspuntosval");
 
         try {
 
@@ -66,7 +66,7 @@ public class Main {
 
             Scanner lectura = new Scanner(System.in);
             System.out.println("¡Bienvenido al sistema de puntos Selecciona una opción: \n\n");
-            Puntos pun = new Puntos();
+            PuntosValidador pun = new PuntosValidador();
 
             do {
 
@@ -79,10 +79,10 @@ public class Main {
                     
                     case 1: // Mostrar Todos
 
-                        List Listapuntos = PuntosDAO.getAllPuntos();
+                        List Listapuntos = PuntosValidadorDAO.getAllPuntosvalidador();
 
                         for (int i = 0; i < Listapuntos.size(); i++) {
-                            pun = (Puntos) Listapuntos.get(i);
+                            pun = (PuntosValidador) Listapuntos.get(i);
                             System.out.println(pun.toString());
                         }
 
@@ -112,7 +112,7 @@ public class Main {
 
                         String input = mapper.writeValueAsString(pun);
                         response = webResource.type(MediaType.APPLICATION_JSON).put(ClientResponse.class, input);
-                        PuntosDAO.addPuntos(pun);
+                        PuntosValidadorDAO.addPuntosvalidador(pun);
                         System.out.println("Listo! c: ");
 
                         break;
@@ -123,7 +123,7 @@ public class Main {
                         ignorar = lectura.nextLine();
                         String id = lectura.nextLine();
 
-                        Puntos puntosRetorno = PuntosDAO.getpuntos(id);
+                        PuntosValidador puntosRetorno = PuntosValidadorDAO.getpuntosvalidador(id);
                         System.out.println(puntosRetorno.toString());
 
                         break;
@@ -149,7 +149,7 @@ public class Main {
                         }
                         pun.setValidado(validado);
 
-                        PuntosDAO.updatePuntos(pun, idEmail);
+                        PuntosValidadorDAO.updatePuntosvalidador(pun, idEmail);
                         System.out.println("Listo! c: ");
 
                         break;
@@ -160,7 +160,7 @@ public class Main {
                         ignorar = lectura.nextLine();
                         email = lectura.nextLine();
 
-                        PuntosDAO.deletePuntos(email);
+                        PuntosValidadorDAO.deletePuntosvalidador(email);
                         System.out.println("Listo! c: ");
 
                         break;

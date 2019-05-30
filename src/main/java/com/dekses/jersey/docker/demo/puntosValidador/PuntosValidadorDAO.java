@@ -1,4 +1,4 @@
-package com.dekses.jersey.docker.demo.puntos;
+package com.dekses.jersey.docker.demo.puntosValidador;
 
 import com.dekses.jersey.docker.demo.Validador.*;
 import com.google.gson.Gson;
@@ -10,32 +10,32 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PuntosDAO {
+public class PuntosValidadorDAO {
 
-      public static Puntos getpuntos(String email) throws UnknownHostException {
+      public static PuntosValidador getpuntosvalidador(String email) throws UnknownHostException {
 
         Singleton conexion = Singleton.getInstance();
 
-        DBCollection coll = conexion.getDb().getCollection("fakenewspuntos");
+        DBCollection coll = conexion.getDb().getCollection("fakenewspuntosvalidador");
 
         Gson gson = new Gson();
         DBObject doc = new BasicDBObject("email", email);
 
         DBObject obj = coll.findOne(doc);
-        Puntos pu = gson.fromJson(obj.toString(), Puntos.class);
+        PuntosValidador pu = gson.fromJson(obj.toString(), PuntosValidador.class);
         
 
         return pu;
 
     }
 
-    public static void addPuntos(Puntos pu) {
+    public static void addPuntosvalidador(PuntosValidador pu) {
 
         try {
 
             Singleton conexion = Singleton.getInstance();
 
-            DBCollection coll = conexion.getDb().getCollection("fakenewspuntos");
+            DBCollection coll = conexion.getDb().getCollection("fakenewspuntosvalidador");
             DBObject doc = new BasicDBObject("puntos", pu.getPuntos())
                     .append("email", pu.getEmail())
                     .append("validado", pu.getValidado());
@@ -50,11 +50,11 @@ public class PuntosDAO {
 
     }
 
-    public static void updatePuntos(Puntos pu, String idEmail) throws UnknownHostException {
+    public static void updatePuntosvalidador(PuntosValidador pu, String idEmail) throws UnknownHostException {
            
         Singleton conexion = Singleton.getInstance();
 
-        DBCollection coll = conexion.getDb().getCollection("fakenewspuntos");
+        DBCollection coll = conexion.getDb().getCollection("fakenewspuntosvalidador");
         BasicDBObject document = new BasicDBObject();
         
        document.append("$set", new BasicDBObject().append("puntos", pu.getPuntos()).append("validado", pu.getValidado())); 
@@ -66,12 +66,12 @@ public class PuntosDAO {
         
     }
 
-    public static void deletePuntos(String email) {
+    public static void deletePuntosvalidador(String email) {
         try {
 
             Singleton conexion = Singleton.getInstance();
 
-            DBCollection coll = conexion.getDb().getCollection("fakenewspuntos");
+            DBCollection coll = conexion.getDb().getCollection("fakenewspuntosvalidador");
             DBObject document = new BasicDBObject();
             document.put("email", email);
 
@@ -85,21 +85,21 @@ public class PuntosDAO {
 
     }
 
-    public static List getAllPuntos() throws UnknownHostException {
+    public static List getAllPuntosvalidador() throws UnknownHostException {
 
-        List<Puntos> ListaPuntos = new ArrayList();
+        List<PuntosValidador> ListaPuntos = new ArrayList();
 
         try {
 
             Singleton conexion = Singleton.getInstance();
 
-            DBCollection coll = conexion.getDb().getCollection("fakenewspuntos");
+            DBCollection coll = conexion.getDb().getCollection("fakenewspuntosvalidador");
             DBCursor cursor = coll.find();
             try {
                 while (cursor.hasNext()) {
                     DBObject object = cursor.next();
                     Gson gson = new Gson();
-                    Puntos pu = gson.fromJson(object.toString(), Puntos.class);
+                    PuntosValidador pu = gson.fromJson(object.toString(), PuntosValidador.class);
                     ListaPuntos.add(pu);
 
 

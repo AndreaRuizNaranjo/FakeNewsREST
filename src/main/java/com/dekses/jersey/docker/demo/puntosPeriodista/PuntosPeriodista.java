@@ -3,24 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.dekses.jersey.docker.demo.puntos;
+package com.dekses.jersey.docker.demo.puntosPeriodista;
 
+import com.dekses.jersey.docker.demo.puntosValidador.*;
 import com.dekses.jersey.docker.demo.Validador.*;
 
 /**
  *
  * @author andre
  */
-public class Puntos {
+public class PuntosPeriodista {
     private String email;
     private String puntos;
     private boolean validado; 
  
 
-   public Puntos() {
+   public PuntosPeriodista() {
             }
 
-    public Puntos(String email, String puntos, boolean validado) {
+    public PuntosPeriodista(String email, String puntos, boolean validado) {
         this.email = email;
         this.puntos = puntos;
         this.validado = validado;

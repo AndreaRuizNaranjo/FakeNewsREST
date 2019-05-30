@@ -37,9 +37,11 @@ public class MyResource {
     // URI:
     // /contextPath/servletPath/employees
     @POST
-    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public void addNoticia(Noticia n) {
+    @Produces({ MediaType.APPLICATION_JSON })
+    public Noticia addNoticia(Noticia n) {
+        System.out.println("alsfjapskdjfklasdf");
         NoticiaDAO.addNoticia(n);
+        return n;
     }
  
     @PUT
